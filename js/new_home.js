@@ -1,6 +1,12 @@
 window.addEventListener('DOMContentLoaded', (event) => {
+    empPayrollList=getEmployeePayrollDataFromStorage();
+    document.querySelector(".emp-count").textContent=empPayrollList.length;
     createInnerHtml();
 });
+const getEmployeePayrollDataFromStorage=() =>{
+    return localStorage.getItem('EmployeePayrollList') ? 
+     JSON.parse(localStorage.getItem('EmployeePayrollList')):[];
+  }
 
 const createInnerHtml = () => {
     const headerHtml = "<th></th><th>Name</th><th>Gender</th><th>Department</th>" +
@@ -18,8 +24,8 @@ const createInnerHtml = () => {
             <td>${empPayrollData._salary}</td>
             <td>${empPayrollData._startDate}</td>
             <td>
-            <img src="../Assets\icons\delete-black-18dp.svg" alt="delete" id="1" onclick="remove(this)">
-            <img src="../Assets\icons\create-black-18dp.svg" alt="edit" id="1" onclick="update(this)">
+            <img name="${empPayrollData._id}" onclick="remove(this)"src="../Assets\icons\delete-black-18dp.svg" alt="delete">
+          <img name="${empPayrollData._id}" onclick="update(this)" src="../Assets\icons\create-black-18dp.svg" alt="edit" >
                     </td>
          </tr>
                 `;
